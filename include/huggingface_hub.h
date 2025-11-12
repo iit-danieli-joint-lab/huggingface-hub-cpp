@@ -37,85 +37,90 @@
 #include <string>
 #include <variant>
 
-namespace huggingface_hub {
-/**
- * @struct FileMetadata
- * @brief Structure to hold metadata of a file.
- *
- * This structure contains the SHA-256 hash, commit ID, and size of a file.
- */
-struct FileMetadata {
-  std::string type;   /**< Type of the file (e.g., "model", "dataset") */
-  std::string oid;    /**< Object ID of the file */
-  uint64_t size;      /**< Size of the file in bytes */
-  std::string sha256; /**< SHA-256 hash of the file */
-};
+namespace huggingface_hub
+{
+  /**
+   * @struct FileMetadata
+   * @brief Structure to hold metadata of a file.
+   *
+   * This structure contains the SHA-256 hash, commit ID, and size of a file.
+   */
+  struct FileMetadata
+  {
+    std::string type;   /**< Type of the file (e.g., "model", "dataset") */
+    std::string oid;    /**< Object ID of the file */
+    uint64_t size;      /**< Size of the file in bytes */
+    std::string sha256; /**< SHA-256 hash of the file */
+  };
 
-/**
- * @struct DownloadResult
- * @brief Structure to hold the result of a download operation.
- *
- * This structure contains the success status and the path of the downloaded
- * file.
- */
-struct DownloadResult {
-  bool success;     /**< Indicates if the download was successful */
-  std::string path; /**< Path to the downloaded file */
-};
+  /**
+   * @struct DownloadResult
+   * @brief Structure to hold the result of a download operation.
+   *
+   * This structure contains the success status and the path of the downloaded
+   * file.
+   */
+  struct DownloadResult
+  {
+    bool success;     /**< Indicates if the download was successful */
+    std::string path; /**< Path to the downloaded file */
+  };
 
-/**
- * @brief Get metadata of a model file from Hugging Face Hub.
- *
- * This function retrieves the metadata of a specified file from a given
- * repository on the Hugging Face Hub.
- *
- * @param repo The repository name or ID.
- * @param file The file name within the repository.
- * @return A variant containing either the FileMetadata structure or an error
- * code.
- */
-std::variant<struct FileMetadata, CURLcode>
-get_model_metadata_from_hf(const std::string &repo, const std::string &file);
+  /**
+   * @brief Get metadata of a model file from Hugging Face Hub.
+   *
+   * This function retrieves the metadata of a specified file from a given
+   * repository on the Hugging Face Hub.
+   *
+   * @param repo The repository name or ID.
+   * @param file The file name within the repository.
+   * @return A variant containing either the FileMetadata structure or an error
+   * code.
+   */
+  std::variant<struct FileMetadata, CURLcode> get_model_metadata_from_hf(const std::string &repo,
+                                                                         const std::string &file);
 
-/**
- * @brief Download a file from Hugging Face Hub.
- *
- * This function downloads a specified file from a given repository on the
- * Hugging Face Hub and saves it to the specified cache directory.
- *
- * @param repo_id The repository ID.
- * @param filename The name of the file to download.
- * @param cache_dir The directory to cache the downloaded file. Default is
- * "~/.cache/huggingface/hub".
- * @param force_download If true, forces the download even if the file already
- * exists in the cache.
- * @return A DownloadResult structure containing the success status and the path
- * of the downloaded file.
- */
-struct DownloadResult
-hf_hub_download(const std::string &repo_id, const std::string &filename,
-                const std::string &cache_dir = "~/.cache/huggingface/hub",
-                bool force_download = false, bool verbose = false);
+  /**
+   * @brief Download a file from Hugging Face Hub.
+   *
+   * This function downloads a specified file from a given repository on the
+   * Hugging Face Hub and saves it to the specified cache directory.
+   *
+   * @param repo_id The repository ID.
+   * @param filename The name of the file to download.
+   * @param cache_dir The directory to cache the downloaded file. Default is
+   * "~/.cache/huggingface/hub".
+   * @param force_download If true, forces the download even if the file already
+   * exists in the cache.
+   * @return A DownloadResult structure containing the success status and the path
+   * of the downloaded file.
+   */
+  struct DownloadResult hf_hub_download(const std::string &repo_id,
+                                        const std::string &filename,
+                                        const std::string &cache_dir = "~/.cache/huggingface/hub",
+                                        bool force_download = false,
+                                        bool verbose = false,
+                                        std::string &out_path = std::string());
 
-/**
- * @brief Download a file from Hugging Face Hub.
- *
- * This function downloads a specified file from a given repository on the
- * Hugging Face Hub and saves it to the specified cache directory.
- *
- * @param repo_id The repository ID.
- * @param filename The name of the file to download.
- * @param cache_dir The directory to cache the downloaded file. Default is
- * "~/.cache/huggingface/hub".
- * @param force_download If true, forces the download even if the file already
- * exists in the cache.
- * @return A DownloadResult structure containing the success status and the path
- * of the downloaded file.
- */
-struct DownloadResult hf_hub_download_with_shards(
-    const std::string &repo_id, const std::string &filename,
-    const std::string &cache_dir = "~/.cache/huggingface/hub",
-    bool force_download = false);
+  /**
+   * @brief Download a file from Hugging Face Hub.
+   *
+   * This function downloads a specified file from a given repository on the
+   * Hugging Face Hub and saves it to the specified cache directory.
+   *
+   * @param repo_id The repository ID.
+   * @param filename The name of the file to download.
+   * @param cache_dir The directory to cache the downloaded file. Default is
+   * "~/.cache/huggingface/hub".
+   * @param force_download If true, forces the download even if the file already
+   * exists in the cache.
+   * @return A DownloadResult structure containing the success status and the path
+   * of the downloaded file.
+   */
+  struct DownloadResult hf_hub_download_with_shards(const std::string &repo_id,
+                                                    const std::string &filename,
+                                                    const std::string &cache_dir = "~/.cache/huggingface/hub",
+                                                    bool force_download = false);
 
 #endif // HUGGINGFACE_HUB_H
 } // namespace huggingface_hub
