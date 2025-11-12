@@ -99,8 +99,7 @@ namespace huggingface_hub
                                         const std::string &filename,
                                         const std::string &cache_dir = "~/.cache/huggingface/hub",
                                         bool force_download = false,
-                                        bool verbose = false,
-                                        std::string &out_path = std::string());
+                                        bool verbose = false);
 
   /**
    * @brief Download a file from Hugging Face Hub.

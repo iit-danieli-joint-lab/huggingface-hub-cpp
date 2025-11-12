@@ -446,8 +446,7 @@ namespace huggingface_hub
                                         const std::string &filename,
                                         const std::string &cache_dir,
                                         bool force_download,
-                                        bool verbose,
-                                        std::string &out_path)
+                                        bool verbose)
   {
     signal(SIGINT, handle_sigint);
     log_verbose = verbose;
@@ -591,8 +590,8 @@ namespace huggingface_hub
     std::filesystem::create_symlink(blob_file_path, snapshot_file_path);
 #endif
 
-    out_path = snapshot_file_path.string();
-    log_info("Downloaded to: " + out_path);
+    result.path = snapshot_file_path.string();
+    log_info("Downloaded to: " + result.path);
 
     result.success = true;
     return result;
